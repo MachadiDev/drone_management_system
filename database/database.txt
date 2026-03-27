@@ -1,0 +1,117 @@
+Base de dados para gerenciamento operacional de uma empresa de drones
+
+DATABASE-TABLES:
+Users
+    -id
+    -name
+    -email
+    -password
+    -role ("admin", "manager", "viewer")
+    -created_at
+    -updated_at
+
+    
+Pilots
+    -id
+    -name
+    -cpf
+    -cnh
+    -SARPAS_number
+    -created_at
+    -updated_at
+
+Auxiliaries
+    -id
+    -name
+    -cpf
+    -cnh
+    -SARPAS_number
+    -created_at
+    -updated_at
+
+Orders
+    -id
+    -order_number
+    -client_id
+    -date_order
+    -farm_name
+    -total_hectares
+    -crop_type
+    -city
+    -state
+    -status ("pendente", "em andamento", "concluído", "cancelado")
+    -service_type ("inspeção", "pulverização", "fotogrametria", "mapeamento")
+    -payment_status ("pendente", "pago", "cancelado")
+    -value_hectare
+    -total_value
+    -created_at
+    -updated_at
+
+Clients
+    -id
+    -name
+    -cpf/cnpj
+    -created_at
+    -updated_at
+
+Drones
+    -id
+    -model
+    -brand
+    -registration_number
+    -SISANT_number
+    -status ("disponível", "em manutenção", "em operação")
+    -type ("pulverização", "imagem")
+    -created_at
+    -updated_at
+
+Operations
+    -id
+    -operation_number
+    -order_id
+    -total_hectares
+    -flighted_hectares
+    -service_type ("inspeção", "pulverização", "fotogrametria", "mapeamento")
+    -start_date
+    -end_date
+    -farm_name
+    -crop_type
+    -status ("pendente", "em andamento", "concluído", "cancelado")
+    -created_at
+    -updated_at
+
+Work_Schedule
+    -id
+    -operation_id
+    -pilot_id
+    -auxiliary_id
+    -drone_id
+    -date_schedule
+    -production
+    -status ("pendente", "em andamento", "concluído", "cancelado")
+    -created_at
+    -updated_at
+
+DATABASE_VIEWS:
+
+vw_faturamento_piloto
+    -id
+    -pilot_id
+    -total_value
+    -status ("pendente", "em andamento", "concluído", "cancelado")
+    -created_at
+    -updated_at
+
+vw_faturamento_operacoes
+    -id
+    -operation_id
+    -pilot_id
+    -auxiliary_id
+    -drone_id
+    -date_schedule
+    -production
+    -value_hectare
+    -total_value
+    -status ("pendente", "em andamento", "concluído", "cancelado")
+    -created_at
+    -updated_at
