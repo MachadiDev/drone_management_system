@@ -10,4 +10,5 @@ class Drone(Base):
     sisant_number = Column(String, index=True)
     status = Column(String, index=True)
     type = Column(String, index=True)
+    isActive = Column(Boolean, default=True)
 

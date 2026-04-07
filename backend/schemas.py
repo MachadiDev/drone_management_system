@@ -7,6 +7,7 @@ class DroneBase(BaseModel):
     sisant_number: str
     status: str
     type: str
+    isActive: bool
 
 class DroneCreate(DroneBase):
     pass

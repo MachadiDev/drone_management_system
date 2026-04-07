@@ -2,7 +2,7 @@ from sqlalchemy.orm import Session
 import models, schemas
 
 def get_all_drones(db: Session):
-    return db.query(models.Drone).order_by(models.Drone.id.desc()).all()
+    return db.query(models.Drone).filter(models.Drone.isActive == True).order_by(models.Drone.id.desc()).all()
 
 def get_drone(db: Session, id: int):
     return db.query(models.Drone).filter(models.Drone.id == id).first()
@@ -26,6 +26,7 @@ def update_drone(db: Session, id: int, drone: schemas.DroneUpdate):
 def delete_drone(db: Session, id: int):
     db_drone = get_drone(db, id)
     if db_drone:
-        db.delete(db_drone)
+        db_drone.isActive = False
         db.commit()
+        db.refresh(db_drone)
     return db_drone

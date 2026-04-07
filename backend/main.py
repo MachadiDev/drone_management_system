@@ -5,8 +5,17 @@ from sqlalchemy.exc import SQLAlchemyError
 import models, schemas, consultas
 from database import engine, get_db
 from config import settings
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.exception_handler(SQLAlchemyError)
 async def sqlalchemy_exception_handler(request, exc):
