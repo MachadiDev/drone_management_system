@@ -12,3 +12,20 @@ class Drone(Base):
     type = Column(String, index=True)
     isActive = Column(Boolean, default=True)
 
+class Pilot(Base):
+    __tablename__ = "pilots"
+    id = Column(Integer, primary_key=True, index=True)
+    cpf = Column(String, index=True)
+    name = Column(String, index=True)
+    cnh = Column(String, index=True)
+    sarpas_number = Column(String, index=True)
+    isActive = Column(Boolean, default=True)
+
+class Auxiliaries(Base):
+    __tablename__ = "auxiliaries"
+    id = Column(Integer, primary_key=True, index=True)
+    cpf = Column(String, index=True)
+    name = Column(String, index=True)
+    cnh = Column(String, index=True)
+    sarpas_number = Column(String, index=True)
+    isActive = Column(Boolean, default=True)

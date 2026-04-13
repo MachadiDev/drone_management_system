@@ -63,6 +63,64 @@ def delete_drone(id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Drone not found")
     return db_drone
 
+@app.get("/pilots", response_model=list[schemas.PilotResponse])
+def read_pilots(db: Session = Depends(get_db)):
+    return consultas.get_all_pilots(db)
+
+@app.get("/pilots/{id}", response_model=schemas.PilotResponse)
+def read_pilot(id: int, db: Session = Depends(get_db)):
+    pilot = consultas.get_pilot(db, id)
+    if pilot is None:
+        raise HTTPException(status_code=404, detail="Pilot not found")
+    return pilot
+
+@app.post("/pilots", response_model=schemas.PilotResponse)
+def create_pilot(pilot: schemas.PilotCreate, db: Session = Depends(get_db)):
+    return consultas.create_pilot(db, pilot)
+
+@app.put("/pilots/{id}", response_model=schemas.PilotResponse)
+def update_pilot(id: int, pilot: schemas.PilotUpdate, db: Session = Depends(get_db)):
+    db_pilot = consultas.update_pilot(db, id, pilot)
+    if db_pilot is None:
+        raise HTTPException(status_code=404, detail="Pilot not found")
+    return db_pilot
+
+@app.delete("/pilots/{id}", response_model=schemas.PilotResponse)
+def delete_pilot(id: int, db: Session = Depends(get_db)):
+    db_pilot = consultas.delete_pilot(db, id)
+    if db_pilot is None:
+        raise HTTPException(status_code=404, detail="Pilot not found")
+    return db_pilot
+
+@app.get("/auxiliaries", response_model=list[schemas.AuxiliariesResponse])
+def read_auxiliaries(db: Session = Depends(get_db)):
+    return consultas.get_all_auxiliaries(db)
+
+@app.get("/auxiliaries/{id}", response_model=schemas.AuxiliariesResponse)
+def read_auxiliary(id: int, db: Session = Depends(get_db)):
+    auxiliary = consultas.get_auxiliary(db, id)
+    if auxiliary is None:
+        raise HTTPException(status_code=404, detail="Auxiliary not found")
+    return auxiliary
+
+@app.post("/auxiliaries", response_model=schemas.AuxiliariesResponse)
+def create_auxiliary(auxiliary: schemas.AuxiliariesCreate, db: Session = Depends(get_db)):
+    return consultas.create_auxiliary(db, auxiliary)
+
+@app.put("/auxiliaries/{id}", response_model=schemas.AuxiliariesResponse)
+def update_auxiliary(id: int, auxiliary: schemas.AuxiliariesUpdate, db: Session = Depends(get_db)):
+    db_auxiliary = consultas.update_auxiliary(db, id, auxiliary)
+    if db_auxiliary is None:
+        raise HTTPException(status_code=404, detail="Auxiliary not found")
+    return db_auxiliary
+
+@app.delete("/auxiliaries/{id}", response_model=schemas.AuxiliariesResponse)
+def delete_auxiliary(id: int, db: Session = Depends(get_db)):
+    db_auxiliary = consultas.delete_auxiliary(db, id)
+    if db_auxiliary is None:
+        raise HTTPException(status_code=404, detail="Auxiliary not found")
+    return db_auxiliary
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host=IP_ADRESS, port=PORT)
